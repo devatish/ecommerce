@@ -1,24 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
+import UserContext from './constext/UserContext';
+import AuthBase from './pages/auth/AuthBase';
+import PanelBase from './pages/panel/PanelBase';
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <UserContext.Provider value={{ isLogin, setIsLogin }}>
+        <Routes>
+          <Route path='/*' element={isLogin ? <PanelBase /> : <AuthBase />} />
+          <Route path='/auth/*' element={isLogin ? <PanelBase /> : <AuthBase />} />
+        </Routes>
+      </UserContext.Provider>
+    </>
   );
 }
 
