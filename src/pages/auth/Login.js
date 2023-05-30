@@ -10,7 +10,7 @@ const SignupSchema = Yup.object().shape({
 
 const Login = () => {
   const usenavigate = useNavigate();
-  const { setIsLogin } = useContext(UserContext)
+  const { setIsLogin, setShowloader } = useContext(UserContext)
   const initialValues = {
     email: '',
     pass: '',
@@ -55,6 +55,7 @@ const Login = () => {
         }).then(response => response.json())
           .then(d => d)
           .catch((error) => error);
+        setShowloader(false);
         if (resp.error == '0') {
           setIsLogin(true);
         } else {
